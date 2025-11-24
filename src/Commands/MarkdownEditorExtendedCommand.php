@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace FilamentMarkdownEditorExtended\MarkdownEditorExtended\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class MarkdownEditorExtendedCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-markdown-editor-extended';
 
     public $description = 'My command';
 

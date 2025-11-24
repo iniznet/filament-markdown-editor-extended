@@ -1,15 +1,15 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace FilamentMarkdownEditorExtended\MarkdownEditorExtended;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class SkeletonPlugin implements Plugin
+class MarkdownEditorExtendedPlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'skeleton';
+        return 'filament-markdown-editor-extended';
     }
 
     public function register(Panel $panel): void

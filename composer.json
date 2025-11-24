@@ -1,29 +1,27 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "iniznet/filament-markdown-editor-extended",
+    "description": "An extended markdown editor for Filament",
     "keywords": [
-        ":vendor_name",
+        "iniznet",
         "laravel",
-        ":package_slug"
+        "filament-markdown-editor-extended"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/iniznet/filament-markdown-editor-extended",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/iniznet/filament-markdown-editor-extended/issues",
+        "source": "https://github.com/iniznet/filament-markdown-editor-extended"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Muhammad Yusuf Fauzan",
+            "email": "niznet@jasedi.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0",
-        "filament/forms": "^3.0",
-        "filament/tables": "^3.0",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
@@ -36,18 +34,17 @@
         "pestphp/pest-plugin-laravel": "^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26"
+        "phpstan/phpstan-phpunit": "^1.0"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "FilamentMarkdownEditorExtended\\MarkdownEditorExtended\\": "src/",
+            "FilamentMarkdownEditorExtended\\MarkdownEditorExtended\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "FilamentMarkdownEditorExtended\\MarkdownEditorExtended\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -67,10 +64,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "FilamentMarkdownEditorExtended\\MarkdownEditorExtended\\MarkdownEditorExtendedServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "MarkdownEditorExtended": "FilamentMarkdownEditorExtended\\MarkdownEditorExtended\\Facades\\MarkdownEditorExtended"
             }
         }
     },
