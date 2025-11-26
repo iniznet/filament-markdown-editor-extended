@@ -1,16 +1,16 @@
 <?php
 
-namespace FilamentMarkdownEditorExtended\MarkdownEditorExtended\Facades;
+namespace Iniznet\FilamentMarkdownEditorExtended\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \FilamentMarkdownEditorExtended\MarkdownEditorExtended\MarkdownEditorExtended
+ * @see \Iniznet\FilamentMarkdownEditorExtended\MarkdownEditorExtended
  */
 class MarkdownEditorExtended extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \FilamentMarkdownEditorExtended\MarkdownEditorExtended\MarkdownEditorExtended::class;
+        return \Iniznet\FilamentMarkdownEditorExtended\MarkdownEditorExtended::class;
     }
 }

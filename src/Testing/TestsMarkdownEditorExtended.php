@@ -1,6 +1,6 @@
 <?php
 
-namespace FilamentMarkdownEditorExtended\MarkdownEditorExtended\Testing;
+namespace Iniznet\FilamentMarkdownEditorExtended\Testing;
 
 use Livewire\Features\SupportTesting\Testable;
 

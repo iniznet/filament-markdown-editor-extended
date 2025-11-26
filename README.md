@@ -1,59 +1,94 @@
-# An extended markdown editor for Filament
+# Extended Markdown Editor for Filament
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/iniznet/filament-markdown-editor-extended.svg?style=flat-square)](https://packagist.org/packages/iniznet/filament-markdown-editor-extended)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/iniznet/filament-markdown-editor-extended/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/iniznet/filament-markdown-editor-extended/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/iniznet/filament-markdown-editor-extended/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/iniznet/filament-markdown-editor-extended/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/iniznet/filament-markdown-editor-extended.svg?style=flat-square)](https://packagist.org/packages/iniznet/filament-markdown-editor-extended)
 
-
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Bring alignment tools, spoiler formatting, and a configurable toolbar to Filament’s Markdown editor. This package ships a drop-in field component plus a panel plugin that exposes a single Markdown toolbar definition you can reuse across panels, forms, and repeaters.
 
 ## Installation
-
-You can install the package via composer:
 
 ```bash
 composer require iniznet/filament-markdown-editor-extended
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="filament-markdown-editor-extended-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
+Publish the configuration if you want to customize the global toolbar:
 
 ```bash
 php artisan vendor:publish --tag="filament-markdown-editor-extended-config"
 ```
 
-Optionally, you can publish the views using
+You can also publish the provided stubs:
 
 ```bash
-php artisan vendor:publish --tag="filament-markdown-editor-extended-views"
+php artisan vendor:publish --tag="filament-markdown-editor-extended-stubs"
 ```
 
-This is the contents of the published config file:
+## Registering the plugin
+
+Attach the plugin to your panel to share one toolbar definition everywhere. The plugin lives under the `Iniznet\FilamentMarkdownEditorExtended` namespace.
+
+```php
+use Filament\Panel;
+use Iniznet\FilamentMarkdownEditorExtended\MarkdownEditorExtendedPlugin;
+
+class AdminPanelProvider extends PanelProvider
+{
+	public function panel(Panel $panel): Panel
+	{
+		return $panel->plugins([
+			MarkdownEditorExtendedPlugin::make()
+				->toolbar([
+					['bold', 'italic', 'strike', 'link'],
+					['blockquote', 'codeBlock'],
+					['spoiler'],
+				]),
+		]);
+	}
+}
+```
+
+If you prefer configuration files, edit `config/markdown-editor-extended.php` instead:
 
 ```php
 return [
+	'toolbar' => [
+		['bold', 'italic', 'strike', 'link'],
+		['heading'],
+		['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+		['alignLeft', 'alignCenter', 'alignRight', 'alignJustify'],
+		['spoiler'],
+		['table', 'attachFiles'],
+		['undo', 'redo'],
+	],
 ];
 ```
 
-## Usage
+## Using the field
+
+Swap Filament’s `MarkdownEditor` component for the extended version. Alignment buttons and the spoiler toggle can be enabled/disabled per-field using booleans or closures.
 
 ```php
-$markdownEditorExtended = new FilamentMarkdownEditorExtended\MarkdownEditorExtended();
-echo $markdownEditorExtended->echoPhrase('Hello, FilamentMarkdownEditorExtended!');
+use Iniznet\FilamentMarkdownEditorExtended\Forms\Components\ExtendedMarkdownEditor;
+
+ExtendedMarkdownEditor::make('content')
+	->columnSpanFull()
+	->alignment(fn (?string $layout) => $layout === 'rich')
+	->spoiler()
+	->helperText('Spoiler + alignment tools are available when the layout allows rich text.');
 ```
 
-## Testing
+If you remove buttons from the toolbar, the component automatically strips unavailable actions while keeping the rest intact.
+
+## Testing & code style
 
 ```bash
+# run the test suite
 composer test
+
+# fix formatting
+composer format
 ```
 
 ## Changelog

@@ -1,6 +1,6 @@
 <?php
 
-namespace FilamentMarkdownEditorExtended\MarkdownEditorExtended\Tests;
+namespace Iniznet\FilamentMarkdownEditorExtended\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
@@ -13,10 +13,10 @@ use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Iniznet\FilamentMarkdownEditorExtended\MarkdownEditorExtendedServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use FilamentMarkdownEditorExtended\MarkdownEditorExtended\MarkdownEditorExtendedServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -25,7 +25,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'FilamentMarkdownEditorExtended\\MarkdownEditorExtended\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Iniznet\\FilamentMarkdownEditorExtended\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
