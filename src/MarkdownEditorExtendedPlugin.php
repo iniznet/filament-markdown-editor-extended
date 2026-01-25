@@ -23,7 +23,6 @@ class MarkdownEditorExtendedPlugin implements Plugin
         if ($this->toolbar !== null) {
             $manager->toolbar($this->toolbar);
         }
-
     }
 
     public function toolbar(array $toolbar): static

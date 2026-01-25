@@ -4,6 +4,7 @@
     "keywords": [
         "iniznet",
         "laravel",
+        "filament",
         "filament-markdown-editor-extended"
     ],
     "homepage": "https://github.com/iniznet/filament-markdown-editor-extended",
@@ -14,21 +15,22 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Muhammad Yusuf Fauzan",
+            "name": "niznet",
             "email": "niznet@jasedi.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.1",
-        "filament/filament": "^4.0",
+        "php": "^8.2",
+        "awcodes/filament-curator": "^4.0|^5.0",
+        "filament/filament": "^4.0|^5.0",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^7.9",
-        "nunomaduro/larastan": "^2.0.1",
-        "orchestra/testbench": "^8.0",
+        "nunomaduro/collision": "^8.0",
+        "nunomaduro/larastan": "^2.9",
+        "orchestra/testbench": "^9.0",
         "pestphp/pest": "^2.1",
         "pestphp/pest-plugin-arch": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
@@ -55,8 +57,10 @@
         "format": "vendor/bin/pint"
     },
     "config": {
+        "optimize-autoloader": true,
         "sort-packages": true,
         "allow-plugins": {
+            "composer/package-versions-deprecated": true,
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         }

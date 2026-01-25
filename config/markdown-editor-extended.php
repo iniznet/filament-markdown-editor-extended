@@ -7,7 +7,8 @@ return [
         ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
         ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify'],
         ['spoiler'],
-        ['table', 'attachFiles'],
+        ['table', 'curator'],
+        ['formatParagraphs'],
         ['undo', 'redo'],
     ],
 ];

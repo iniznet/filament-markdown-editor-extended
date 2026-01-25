@@ -1,10 +1,7 @@
 const ICON_MASKS = {
     'align-left': `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-            <rect x="4" y="5" width="12" height="2" rx="1" />
-            <rect x="4" y="9" width="8" height="2" rx="1" />
-            <rect x="4" y="13" width="12" height="2" rx="1" />
-            <rect x="4" y="17" width="8" height="2" rx="1" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
         </svg>
     `,
     'align-center': `
@@ -16,25 +13,30 @@ const ICON_MASKS = {
         </svg>
     `,
     'align-right': `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-            <rect x="8" y="5" width="12" height="2" rx="1" />
-            <rect x="12" y="9" width="8" height="2" rx="1" />
-            <rect x="8" y="13" width="12" height="2" rx="1" />
-            <rect x="12" y="17" width="8" height="2" rx="1" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
         </svg>
     `,
     'align-justify': `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-            <rect x="4" y="5" width="16" height="2" rx="1" />
-            <rect x="4" y="9" width="16" height="2" rx="1" />
-            <rect x="4" y="13" width="16" height="2" rx="1" />
-            <rect x="4" y="17" width="16" height="2" rx="1" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
         </svg>
     `,
     spoiler: `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-            <path d="M12 5c4.79 0 8.7 3.05 10 7-1.3 3.95-5.21 7-10 7s-8.7-3.05-10-7c1.3-3.95 5.21-7 10-7zm0 4a3 3 0 100 6 3 3 0 000-6z" />
-            <path d="M6 18.5L18.5 6 19.9 7.4 7.4 19.9z" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+        </svg>
+    `,
+    curator: `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        </svg>
+    `,
+    'format-paragraphs': `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 4v16"/>
+            <path d="M17 4v16"/>
+            <path d="M19 4H9.5a4.5 4.5 0 0 0 0 9H13"/>
         </svg>
     `,
 };
@@ -49,6 +51,18 @@ const CUSTOM_BUTTONS = {
         className: 'markdown-editor-extended-icon markdown-editor-extended-spoiler',
         title: 'Spoiler',
         action: () => toggleInlineSpoiler(component),
+    }),
+    curator: (component) => ({
+        name: 'curator',
+        className: 'markdown-editor-extended-icon markdown-editor-extended-curator',
+        title: 'Insert Media',
+        action: () => openCuratorPanel(component),
+    }),
+    formatParagraphs: (component) => ({
+        name: 'format-paragraphs',
+        className: 'markdown-editor-extended-icon markdown-editor-extended-format-paragraphs',
+        title: 'Convert line breaks to paragraphs',
+        action: () => convertLineBreaksToParagraphs(component),
     }),
 };
 
@@ -243,6 +257,51 @@ function toggleInlineSpoiler(component) {
     cm.focus();
 }
 
+function convertLineBreaksToParagraphs(component) {
+    const editor = getEditorInstance(component);
+
+    if (! editor?.codemirror) {
+        return;
+    }
+
+    const cm = editor.codemirror;
+    const doc = cm.getDoc();
+    const hasSelection = doc.somethingSelected();
+
+    let text;
+    let startPos;
+    let endPos;
+
+    if (hasSelection) {
+        // Only convert selected text
+        text = doc.getSelection();
+        startPos = doc.getCursor('from');
+        endPos = doc.getCursor('to');
+    } else {
+        // Convert entire document
+        text = doc.getValue();
+        startPos = { line: 0, ch: 0 };
+        endPos = { line: doc.lineCount() - 1, ch: doc.getLine(doc.lineCount() - 1).length };
+    }
+
+    // Convert single newlines to double newlines (paragraphs)
+    // But preserve existing double newlines (already paragraphs)
+    // And preserve markdown elements like headers, lists, code blocks, etc.
+    const converted = text
+        // First, normalize: replace 3+ newlines with exactly 2
+        .replace(/\n{3,}/g, '\n\n')
+        // Then convert single newlines to double (but not inside code blocks or after special chars)
+        .replace(/([^\n])\n(?!\n)(?![-*+#>\d`|])/g, '$1\n\n');
+
+    if (hasSelection) {
+        doc.replaceRange(converted, startPos, endPos);
+    } else {
+        doc.setValue(converted);
+    }
+
+    cm.focus();
+}
+
 function patchAlpineData() {
     const Alpine = window.Alpine;
 
@@ -274,3 +333,104 @@ if (! patchAlpineData()) {
         patchAlpineData();
     }, { once: true });
 }
+
+function openCuratorPanel(component) {
+    // component is the Alpine data object (markdownEditorFormComponent instance)
+    // It has: editor, state, $wire, $root, $refs, etc.
+
+    const $wire = component.$wire;
+    const $root = component.$root;
+
+    if (!$wire) {
+        console.warn('Curator: $wire not found on component');
+        return;
+    }
+
+    if (!$root) {
+        console.warn('Curator: $root not found on component');
+        return;
+    }
+
+    // The key is the id attribute of the $root element (set in the blade template)
+    // Format: typically something like "data.content"
+    const key = $root.id;
+
+    if (!key) {
+        console.warn('Curator: Could not determine component key from $root.id');
+        return;
+    }
+
+    const modalId = `curator-panel-${key.replace(/\./g, '-')}`;
+    window.dispatchEvent(new CustomEvent('open-modal', {
+        detail: { id: modalId },
+    }));
+}
+
+// Listen for our custom markdown-curator-insert event
+document.addEventListener('markdown-curator-insert', (event) => {
+    // Handle both wrapped and unwrapped event detail (Livewire can wrap in array)
+    let detail = event.detail;
+    if (Array.isArray(detail)) {
+        detail = detail[0];
+    }
+
+    const { key } = detail || {};
+
+    // The media structure from Curator is deeply nested:
+    // detail.media = [{ statePath: '...', media: [actual items] }]
+    // We need to extract the actual media items
+    let media = detail?.media;
+
+    // Unwrap the nested structure
+    if (Array.isArray(media) && media.length > 0) {
+        // Check if it's the Curator structure with statePath and media
+        if (media[0]?.media && Array.isArray(media[0].media)) {
+            media = media[0].media;
+        }
+    }
+
+    if (!key) {
+        console.warn('Curator: Missing key in event detail');
+        return;
+    }
+
+    if (!media || (Array.isArray(media) && media.length === 0)) {
+        console.warn('Curator: Missing media in event detail');
+        return;
+    }
+
+    if (!window.Alpine) {
+        console.warn('Curator: Alpine not found');
+        return;
+    }
+
+    // The key matches the id attribute of the markdown editor element
+    const editorElement = document.getElementById(key);
+
+    if (!editorElement) {
+        console.warn('Curator: Could not find editor element with id:', key);
+        return;
+    }
+
+    try {
+        const data = window.Alpine.$data(editorElement);
+        const editor = data?.editor;
+
+        if (editor && editor.codemirror) {
+            const cm = editor.codemirror;
+            const items = Array.isArray(media) ? media : [media];
+            const text = items.map(item => {
+                const url = item.url || item.large_url || item.medium_url || item.thumbnail_url;
+                const alt = item.alt || item.title || item.pretty_name || item.name || '';
+                return `![${alt}](${url})`;
+            }).join('\n');
+
+            cm.replaceSelection(text);
+            cm.focus();
+        } else {
+            console.warn('Curator: Could not find codemirror instance');
+        }
+    } catch (e) {
+        console.error('Curator: Error inserting media', e);
+    }
+});

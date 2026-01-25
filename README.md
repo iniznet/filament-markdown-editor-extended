@@ -7,6 +7,10 @@
 
 Bring alignment tools, spoiler formatting, and a configurable toolbar to Filament’s Markdown editor. This package ships a drop-in field component plus a panel plugin that exposes a single Markdown toolbar definition you can reuse across panels, forms, and repeaters.
 
+> [!WARNING]
+> This is an early build. The feature set is still evolving and customization options are limited for now.
+> The package requires Filament Curator (it is included as a dependency), so Curator must be installed and available for the media picker features to work.
+
 ## Installation
 
 ```bash
