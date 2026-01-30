@@ -1,70 +1,72 @@
-const ICON_MASKS = {
-    'align-left': `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
-        </svg>
-    `,
-    'align-center': `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-            <rect x="6" y="5" width="12" height="2" rx="1" />
-            <rect x="8" y="9" width="8" height="2" rx="1" />
-            <rect x="6" y="13" width="12" height="2" rx="1" />
-            <rect x="8" y="17" width="8" height="2" rx="1" />
-        </svg>
-    `,
-    'align-right': `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
-        </svg>
-    `,
-    'align-justify': `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
-        </svg>
-    `,
-    spoiler: `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
-        </svg>
-    `,
-    curator: `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-        </svg>
-    `,
-    'format-paragraphs': `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13 4v16"/>
-            <path d="M17 4v16"/>
-            <path d="M19 4H9.5a4.5 4.5 0 0 0 0 9H13"/>
-        </svg>
-    `,
+const EXTENDED_ICON_KEYS = new Set([
+    'align-left',
+    'align-center',
+    'align-right',
+    'align-justify',
+    'spoiler',
+    'curator',
+    'format-paragraphs',
+]);
+
+const DEFAULT_TITLES = {
+    bold: 'Bold',
+    italic: 'Italic',
+    strike: 'Strikethrough',
+    link: 'Link',
+    heading: 'Heading',
+    blockquote: 'Blockquote',
+    codeBlock: 'Code block',
+    bulletList: 'Bullet list',
+    orderedList: 'Numbered list',
+};
+
+const DEFAULT_SYNTAX = {
+    bold: { prefix: '**', suffix: '**' },
+    italic: { prefix: '*', suffix: '*' },
+    strike: { prefix: '~~', suffix: '~~' },
+    link: { prefix: '[', suffix: '](url)' },
+    heading: { prefix: '# ', suffix: '' },
+    blockquote: { prefix: '> ', suffix: '' },
+    codeBlock: { prefix: '```\n', suffix: '\n```' },
+    bulletList: { prefix: '- ', suffix: '' },
+    orderedList: { prefix: '1. ', suffix: '' },
+    alignLeft: { prefix: ':::align-left\n', suffix: '\n:::' },
+    alignCenter: { prefix: ':::align-center\n', suffix: '\n:::' },
+    alignRight: { prefix: ':::align-right\n', suffix: '\n:::' },
+    alignJustify: { prefix: ':::align-justify\n', suffix: '\n:::' },
+    spoiler: { prefix: '||', suffix: '||' },
 };
 
 const CUSTOM_BUTTONS = {
-    alignLeft: (component) => makeAlignmentButton(component, 'align-left', 'Align left'),
-    alignCenter: (component) => makeAlignmentButton(component, 'align-center', 'Align center'),
-    alignRight: (component) => makeAlignmentButton(component, 'align-right', 'Align right'),
-    alignJustify: (component) => makeAlignmentButton(component, 'align-justify', 'Justify'),
+    alignLeft: (component) => makeAlignmentButton(component, 'align-left', getToolLabel(component, 'align_left', 'Align left')),
+    alignCenter: (component) => makeAlignmentButton(component, 'align-center', getToolLabel(component, 'align_center', 'Align center')),
+    alignRight: (component) => makeAlignmentButton(component, 'align-right', getToolLabel(component, 'align_right', 'Align right')),
+    alignJustify: (component) => makeAlignmentButton(component, 'align-justify', getToolLabel(component, 'align_justify', 'Justify')),
     spoiler: (component) => ({
         name: 'spoiler',
         className: 'markdown-editor-extended-icon markdown-editor-extended-spoiler',
-        title: 'Spoiler',
+        title: getToolLabel(component, 'spoiler', 'Spoiler'),
         action: () => toggleInlineSpoiler(component),
     }),
     curator: (component) => ({
         name: 'curator',
         className: 'markdown-editor-extended-icon markdown-editor-extended-curator',
-        title: 'Insert Media',
+        title: getToolLabel(component, 'curator', 'Insert media'),
         action: () => openCuratorPanel(component),
     }),
     formatParagraphs: (component) => ({
         name: 'format-paragraphs',
         className: 'markdown-editor-extended-icon markdown-editor-extended-format-paragraphs',
-        title: 'Convert line breaks to paragraphs',
+        title: getToolLabel(component, 'format_paragraphs', 'Convert line breaks to paragraphs'),
         action: () => convertLineBreaksToParagraphs(component),
     }),
 };
+
+function getToolLabel(component, key, fallback) {
+    const labels = component?.extendedTranslations?.tools ?? component?.extendedTranslations ?? {};
+
+    return labels[key] ?? fallback;
+}
 
 function makeAlignmentButton(component, variant, title) {
     return {
@@ -75,19 +77,19 @@ function makeAlignmentButton(component, variant, title) {
     };
 }
 
-function ensureIconStylesInjected() {
+function ensureIconStylesInjected(component) {
     if (document.getElementById('markdown-editor-extended-icons')) {
         return;
     }
 
     const style = document.createElement('style');
     style.id = 'markdown-editor-extended-icons';
-    style.textContent = buildIconStyles();
+    style.textContent = buildIconStyles(getIconMasks(component));
 
     document.head.appendChild(style);
 }
 
-function buildIconStyles() {
+function buildIconStyles(iconMasks) {
     const baseSelector = '.editor-toolbar';
     const base = `
 ${baseSelector} a.markdown-editor-extended-icon,
@@ -109,17 +111,23 @@ ${baseSelector} button.markdown-editor-extended-icon::before {
 }
 `;
 
-    const iconRules = Object.entries(ICON_MASKS)
-        .map(([variant, svg]) => {
-            const dataUrl = svgDataUrl(svg);
+    const iconRules = Object.entries(iconMasks)
+        .map(([variant, value]) => {
+            const selector = resolveIconSelector(baseSelector, variant);
+            const url = resolveIconUrl(value);
+
+            if (! selector || ! url) {
+                return '';
+            }
 
             return `
-${baseSelector} .markdown-editor-extended-${variant}::before {
-    -webkit-mask-image: url('${dataUrl}');
-    mask-image: url('${dataUrl}');
+${selector}::before {
+    -webkit-mask-image: url('${url}');
+    mask-image: url('${url}');
 }
 `;
         })
+        .filter(Boolean)
         .join('\n');
 
     return `${base}\n${iconRules}`;
@@ -132,6 +140,40 @@ function svgDataUrl(svg) {
         .replace(/\)/g, '%29');
 
     return `data:image/svg+xml,${encoded}`;
+}
+
+function resolveIconSelector(baseSelector, key) {
+    if (! key) {
+        return null;
+    }
+
+    if (key.startsWith('.') || key.startsWith('#') || key.includes(' ')) {
+        return `${baseSelector} ${key}`;
+    }
+
+    if (EXTENDED_ICON_KEYS.has(key)) {
+        return `${baseSelector} .markdown-editor-extended-${key}`;
+    }
+
+    return `${baseSelector} .${key}`;
+}
+
+function resolveIconUrl(value) {
+    if (! value || typeof value !== 'string') {
+        return null;
+    }
+
+    const trimmed = value.trim();
+
+    if (trimmed.startsWith('<svg')) {
+        return svgDataUrl(trimmed);
+    }
+
+    return trimmed;
+}
+
+function getIconMasks(component) {
+    return component?.extendedIcons ?? {};
 }
 
 function insertFencedBlock(component, opener) {
@@ -166,11 +208,29 @@ function patchComponent(component) {
         return component;
     }
 
-    ensureIconStylesInjected();
+    if (typeof component.init === 'function' && ! component.__markdownEditorExtendedInitPatched) {
+        const originalInit = component.init.bind(component);
+
+        component.init = async function (...args) {
+            await originalInit(...args);
+
+            applyPreviewSyntaxNormalizer(component);
+        };
+
+        component.__markdownEditorExtendedInitPatched = true;
+    }
+
+    ensureIconStylesInjected(component);
 
     const originalGetToolbarButton = component.getToolbarButton.bind(component);
 
     component.getToolbarButton = function (name) {
+        const syntaxConfig = getSyntaxConfig(component, name);
+
+        if (syntaxConfig) {
+            return buildSyntaxButton(component, name, syntaxConfig);
+        }
+
         if (CUSTOM_BUTTONS[name]) {
             return CUSTOM_BUTTONS[name](component);
         }
@@ -181,6 +241,127 @@ function patchComponent(component) {
     component.__markdownEditorExtendedPatched = true;
 
     return component;
+}
+
+function applyPreviewSyntaxNormalizer(component) {
+    if (! component?.editor) {
+        return;
+    }
+
+    if (component.editor.options?.previewRender?.__markdownEditorExtended) {
+        return;
+    }
+
+    const originalPreviewRender = component.editor.options?.previewRender?.bind(component.editor)
+        ?? ((plainText) => component.editor.markdown(plainText));
+
+    const normalizedPreviewRender = (plainText) => {
+        const normalized = normalizePreviewMarkdown(plainText, component.extendedSyntax ?? {});
+
+        return originalPreviewRender(normalized);
+    };
+
+    normalizedPreviewRender.__markdownEditorExtended = true;
+
+    component.editor.options.previewRender = normalizedPreviewRender;
+}
+
+function normalizePreviewMarkdown(text, syntax) {
+    let normalized = text;
+
+    Object.entries(DEFAULT_SYNTAX).forEach(([key, defaults]) => {
+        const custom = syntax?.[key];
+
+        if (! custom || typeof custom !== 'object') {
+            return;
+        }
+
+        const customPrefix = custom.prefix ?? '';
+        const customSuffix = custom.suffix ?? '';
+
+        if (customPrefix === defaults.prefix && customSuffix === defaults.suffix) {
+            return;
+        }
+
+        if (! customPrefix && ! customSuffix) {
+            return;
+        }
+
+        const pattern = new RegExp(`${escapeRegex(customPrefix)}([\\s\\S]*?)${escapeRegex(customSuffix)}`, 'g');
+
+        normalized = normalized.replace(pattern, `${defaults.prefix}$1${defaults.suffix}`);
+    });
+
+    return normalized;
+}
+
+function escapeRegex(value) {
+    return value.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&');
+}
+
+function getSyntaxConfig(component, name) {
+    const syntax = component?.extendedSyntax ?? {};
+
+    return syntax?.[name] ?? null;
+}
+
+function buildSyntaxButton(component, name, config) {
+    const normalized = normalizeSyntaxConfig(config);
+    const title = normalized.title ?? DEFAULT_TITLES[name] ?? name;
+
+    return {
+        name,
+        className: name,
+        title,
+        action: () => applySyntax(component, normalized),
+    };
+}
+
+function normalizeSyntaxConfig(config) {
+    if (typeof config === 'string') {
+        return {
+            prefix: config,
+            suffix: config,
+        };
+    }
+
+    if (! config || typeof config !== 'object') {
+        return {
+            prefix: '',
+            suffix: '',
+        };
+    }
+
+    return {
+        prefix: config.prefix ?? '',
+        suffix: config.suffix ?? '',
+        title: config.title ?? null,
+    };
+}
+
+function applySyntax(component, config) {
+    const editor = getEditorInstance(component);
+
+    if (! editor?.codemirror) {
+        return;
+    }
+
+    const cm = editor.codemirror;
+    const doc = cm.getDoc();
+    const selection = doc.getSelection();
+    const start = doc.getCursor('from');
+    const startIndex = doc.indexFromPos(start);
+
+    const value = `${config.prefix}${selection || ''}${config.suffix}`;
+
+    doc.replaceSelection(value);
+
+    if (! selection) {
+        const cursorStart = startIndex + config.prefix.length;
+        doc.setSelection(doc.posFromIndex(cursorStart), doc.posFromIndex(cursorStart));
+    }
+
+    cm.focus();
 }
 
 function getEditorInstance(component) {

@@ -23,7 +23,8 @@ class MarkdownEditorExtendedServiceProvider extends PackageServiceProvider
                     ->askToStarRepoOnGitHub('iniznet/filament-markdown-editor-extended');
             })
             ->hasConfigFile('markdown-editor-extended')
-            ->hasViews('filament-markdown-editor-extended');
+            ->hasViews('filament-markdown-editor-extended')
+            ->hasTranslations();
     }
 
     public function packageRegistered(): void
@@ -42,6 +43,10 @@ class MarkdownEditorExtendedServiceProvider extends PackageServiceProvider
             $this->getScriptData(),
             $this->getAssetPackageName()
         );
+
+        $this->publishes([
+            __DIR__ . '/../stubs' => base_path('stubs/filament-markdown-editor-extended'),
+        ], 'filament-markdown-editor-extended-stubs');
 
         if (is_callable([Testable::class, 'mixin'])) {
             call_user_func([Testable::class, 'mixin'], new TestsMarkdownEditorExtended());

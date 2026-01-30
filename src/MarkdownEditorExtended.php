@@ -14,7 +14,7 @@ class MarkdownEditorExtended
             ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
             ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify'],
             ['spoiler'],
-            ['table', 'curator'],
+            ['table', 'attachFiles'],
             ['formatParagraphs'],
             ['undo', 'redo'],
         ];

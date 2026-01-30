@@ -12,7 +12,7 @@
 <x-dynamic-component :component="$fieldWrapperView" :field="$field">
     @if ($isDisabled())
         <div id="{{ $id }}" class="fi-fo-markdown-editor fi-disabled fi-prose">
-            {!! str($getState())->markdown($getCommonMarkOptions(), $getCommonMarkExtensions())->sanitizeHtml() !!}
+            {!! str($getNormalizedStateForRendering())->markdown($getCommonMarkOptions(), $getCommonMarkExtensions())->sanitizeHtml() !!}
         </div>
     @else
         <x-filament::input.wrapper
@@ -38,6 +38,9 @@
                             placeholder: @js($getPlaceholder()),
                             state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')", isOptimisticallyLive: false) }},
                             toolbarButtons: @js($getToolbarButtons()),
+                            extendedTranslations: @js($getExtendedTranslations()),
+                            extendedSyntax: @js($getExtendedSyntax()),
+                            extendedIcons: @js($getExtendedIcons()),
                             translations: @js(__('filament-forms::components.markdown_editor')),
                             uploadFileAttachmentUsing: async (file, onSuccess, onError) => {
                                 const acceptedTypes = @js($fileAttachmentsAcceptedFileTypes)
@@ -77,8 +80,10 @@
     @endif
 </x-dynamic-component>
 
-@include('filament-markdown-editor-extended::curator-modal', [
-    'editorId' => $id,
-    'modalId' => $curatorModalId,
-    'settings' => $getCuratorSettings(),
-])
+@if ($isCuratorEnabled())
+    @include('filament-markdown-editor-extended::curator-modal', [
+        'editorId' => $id,
+        'modalId' => $curatorModalId,
+        'settings' => $getCuratorSettings(),
+    ])
+@endif

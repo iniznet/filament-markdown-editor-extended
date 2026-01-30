@@ -1,45 +1,20 @@
-var A={"align-left":`
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
-        </svg>
-    `,"align-center":`
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-            <rect x="6" y="5" width="12" height="2" rx="1" />
-            <rect x="8" y="9" width="8" height="2" rx="1" />
-            <rect x="6" y="13" width="12" height="2" rx="1" />
-            <rect x="8" y="17" width="8" height="2" rx="1" />
-        </svg>
-    `,"align-right":`
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
-        </svg>
-    `,"align-justify":`
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
-        </svg>
-    `,spoiler:`
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
-        </svg>
-    `,curator:`
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-        </svg>
-    `,"format-paragraphs":`
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13 4v16"/>
-            <path d="M17 4v16"/>
-            <path d="M19 4H9.5a4.5 4.5 0 0 0 0 9H13"/>
-        </svg>
-    `},v={alignLeft:t=>p(t,"align-left","Align left"),alignCenter:t=>p(t,"align-center","Align center"),alignRight:t=>p(t,"align-right","Align right"),alignJustify:t=>p(t,"align-justify","Justify"),spoiler:t=>({name:"spoiler",className:"markdown-editor-extended-icon markdown-editor-extended-spoiler",title:"Spoiler",action:()=>_(t)}),curator:t=>({name:"curator",className:"markdown-editor-extended-icon markdown-editor-extended-curator",title:"Insert Media",action:()=>T(t)}),formatParagraphs:t=>({name:"format-paragraphs",className:"markdown-editor-extended-icon markdown-editor-extended-format-paragraphs",title:"Convert line breaks to paragraphs",action:()=>P(t)})};function p(t,o,r){return{name:o,className:`markdown-editor-extended-icon markdown-editor-extended-${o}`,title:r,action:()=>F(t,`:::${o}`)}}function E(){if(document.getElementById("markdown-editor-extended-icons"))return;let t=document.createElement("style");t.id="markdown-editor-extended-icons",t.textContent=b(),document.head.appendChild(t)}function b(){let t=".editor-toolbar",o=`
-${t} a.markdown-editor-extended-icon,
-${t} button.markdown-editor-extended-icon {
+var A=new Set(["align-left","align-center","align-right","align-justify","spoiler","curator","format-paragraphs"]),F={bold:"Bold",italic:"Italic",strike:"Strikethrough",link:"Link",heading:"Heading",blockquote:"Blockquote",codeBlock:"Code block",bulletList:"Bullet list",orderedList:"Numbered list"},T={bold:{prefix:"**",suffix:"**"},italic:{prefix:"*",suffix:"*"},strike:{prefix:"~~",suffix:"~~"},link:{prefix:"[",suffix:"](url)"},heading:{prefix:"# ",suffix:""},blockquote:{prefix:"> ",suffix:""},codeBlock:{prefix:"```\n",suffix:"\n```"},bulletList:{prefix:"- ",suffix:""},orderedList:{prefix:"1. ",suffix:""},alignLeft:{prefix:`:::align-left
+`,suffix:`
+:::`},alignCenter:{prefix:`:::align-center
+`,suffix:`
+:::`},alignRight:{prefix:`:::align-right
+`,suffix:`
+:::`},alignJustify:{prefix:`:::align-justify
+`,suffix:`
+:::`},spoiler:{prefix:"||",suffix:"||"}},S={alignLeft:e=>m(e,"align-left",f(e,"align_left","Align left")),alignCenter:e=>m(e,"align-center",f(e,"align_center","Align center")),alignRight:e=>m(e,"align-right",f(e,"align_right","Align right")),alignJustify:e=>m(e,"align-justify",f(e,"align_justify","Justify")),spoiler:e=>({name:"spoiler",className:"markdown-editor-extended-icon markdown-editor-extended-spoiler",title:f(e,"spoiler","Spoiler"),action:()=>J(e)}),curator:e=>({name:"curator",className:"markdown-editor-extended-icon markdown-editor-extended-curator",title:f(e,"curator","Insert media"),action:()=>X(e)}),formatParagraphs:e=>({name:"format-paragraphs",className:"markdown-editor-extended-icon markdown-editor-extended-format-paragraphs",title:f(e,"format_paragraphs","Convert line breaks to paragraphs"),action:()=>V(e)})};function f(e,n,o){return(e?.extendedTranslations?.tools??e?.extendedTranslations??{})[n]??o}function m(e,n,o){return{name:n,className:`markdown-editor-extended-icon markdown-editor-extended-${n}`,title:o,action:()=>D(e,`:::${n}`)}}function P(e){if(document.getElementById("markdown-editor-extended-icons"))return;let n=document.createElement("style");n.id="markdown-editor-extended-icons",n.textContent=v(j(e)),document.head.appendChild(n)}function v(e){let n=".editor-toolbar",o=`
+${n} a.markdown-editor-extended-icon,
+${n} button.markdown-editor-extended-icon {
     position: relative;
     text-indent: -9999px;
 }
 
-${t} a.markdown-editor-extended-icon::before,
-${t} button.markdown-editor-extended-icon::before {
+${n} a.markdown-editor-extended-icon::before,
+${n} button.markdown-editor-extended-icon::before {
     content: '';
     display: inline-block;
     width: 1.1rem;
@@ -49,18 +24,18 @@ ${t} button.markdown-editor-extended-icon::before {
     mask-position: center;
     mask-size: 1.1rem;
 }
-`,r=Object.entries(A).map(([e,n])=>{let i=B(n);return`
-${t} .markdown-editor-extended-${e}::before {
-    -webkit-mask-image: url('${i}');
-    mask-image: url('${i}');
+`,t=Object.entries(e).map(([r,i])=>{let a=B(n,r),s=L(i);return!a||!s?"":`
+${a}::before {
+    -webkit-mask-image: url('${s}');
+    mask-image: url('${s}');
 }
-`}).join(`
+`}).filter(Boolean).join(`
 `);return`${o}
-${r}`}function B(t){return`data:image/svg+xml,${encodeURIComponent(t.replace(/\s+/g," ").trim()).replace(/'/g,"%27").replace(/\(/g,"%28").replace(/\)/g,"%29")}`}function F(t,o){let r=x(t);if(!r?.codemirror)return;let e=r.codemirror,n=e.getDoc(),i=n.getSelection(),s=`${o}
+${t}`}function R(e){return`data:image/svg+xml,${encodeURIComponent(e.replace(/\s+/g," ").trim()).replace(/'/g,"%27").replace(/\(/g,"%28").replace(/\)/g,"%29")}`}function B(e,n){return n?n.startsWith(".")||n.startsWith("#")||n.includes(" ")?`${e} ${n}`:A.has(n)?`${e} .markdown-editor-extended-${n}`:`${e} .${n}`:null}function L(e){if(!e||typeof e!="string")return null;let n=e.trim();return n.startsWith("<svg")?R(n):n}function j(e){return e?.extendedIcons??{}}function D(e,n){let o=h(e);if(!o?.codemirror)return;let t=o.codemirror,r=t.getDoc(),i=r.getSelection(),s=`${n}
 ${i||""}
-:::`;if(n.replaceSelection(s),!i){let g=n.getCursor();n.setCursor({line:g.line-1,ch:o.length})}e.focus()}function M(t){if(!t||t.__markdownEditorExtendedPatched||typeof t.getToolbarButton!="function")return t;E();let o=t.getToolbarButton.bind(t);return t.getToolbarButton=function(r){return v[r]?v[r](t):o(r)},t.__markdownEditorExtendedPatched=!0,t}function x(t){return t?.editor??t}function _(t){let o=x(t);if(!o?.codemirror)return;let r=o.codemirror,e=r.getDoc(),n="||",i="||",l=e.somethingSelected(),s=e.getCursor("from"),g=e.getCursor("to"),c=e.indexFromPos(s),a=e.indexFromPos(g);if(l){let d=e.getSelection(),h=d.startsWith(n)&&d.endsWith(i)&&d.length>=n.length+i.length,w=c>=n.length?e.getRange(e.posFromIndex(c-n.length),s):"",$=e.getRange(g,e.posFromIndex(a+i.length)),y=w===n&&$===i;if(h){let u=d.slice(n.length,d.length-i.length);e.replaceRange(u,s,g);let m=c+u.length;e.setSelection(s,e.posFromIndex(m))}else if(y){let u=e.posFromIndex(a),m=e.posFromIndex(a+i.length);e.replaceRange("",u,m);let f=e.posFromIndex(c-n.length);e.replaceRange("",f,s);let I=c-n.length,S=a-n.length;e.setSelection(e.posFromIndex(I),e.posFromIndex(S))}else{let u=`${n}${d}${i}`;e.replaceRange(u,s,g);let m=e.posFromIndex(c+n.length),f=e.posFromIndex(c+n.length+d.length);e.setSelection(m,f)}}else{let d="spoiler",h=`${n}${d}${i}`;e.replaceRange(h,s);let k=e.posFromIndex(c+n.length),w=e.posFromIndex(c+n.length+d.length);e.setSelection(k,w)}r.focus()}function P(t){let o=x(t);if(!o?.codemirror)return;let r=o.codemirror,e=r.getDoc(),n=e.somethingSelected(),i,l,s;n?(i=e.getSelection(),l=e.getCursor("from"),s=e.getCursor("to")):(i=e.getValue(),l={line:0,ch:0},s={line:e.lineCount()-1,ch:e.getLine(e.lineCount()-1).length});let g=i.replace(/\n{3,}/g,`
+:::`;if(r.replaceSelection(s),!i){let d=r.getCursor();r.setCursor({line:d.line-1,ch:n.length})}t.focus()}function N(e){if(!e||e.__markdownEditorExtendedPatched||typeof e.getToolbarButton!="function")return e;if(typeof e.init=="function"&&!e.__markdownEditorExtendedInitPatched){let o=e.init.bind(e);e.init=async function(...t){await o(...t),z(e)},e.__markdownEditorExtendedInitPatched=!0}P(e);let n=e.getToolbarButton.bind(e);return e.getToolbarButton=function(o){let t=U(e,o);return t?W(e,o,t):S[o]?S[o](e):n(o)},e.__markdownEditorExtendedPatched=!0,e}function z(e){if(!e?.editor||e.editor.options?.previewRender?.__markdownEditorExtended)return;let n=e.editor.options?.previewRender?.bind(e.editor)??(t=>e.editor.markdown(t)),o=t=>{let r=O(t,e.extendedSyntax??{});return n(r)};o.__markdownEditorExtended=!0,e.editor.options.previewRender=o}function O(e,n){let o=e;return Object.entries(T).forEach(([t,r])=>{let i=n?.[t];if(!i||typeof i!="object")return;let a=i.prefix??"",s=i.suffix??"";if(a===r.prefix&&s===r.suffix||!a&&!s)return;let d=new RegExp(`${y(a)}([\\s\\S]*?)${y(s)}`,"g");o=o.replace(d,`${r.prefix}$1${r.suffix}`)}),o}function y(e){return e.replace(/[.*+?^${}()|[\\]\\]/g,"\\$&")}function U(e,n){return(e?.extendedSyntax??{})?.[n]??null}function W(e,n,o){let t=M(o),r=t.title??F[n]??n;return{name:n,className:n,title:r,action:()=>q(e,t)}}function M(e){return typeof e=="string"?{prefix:e,suffix:e}:!e||typeof e!="object"?{prefix:"",suffix:""}:{prefix:e.prefix??"",suffix:e.suffix??"",title:e.title??null}}function q(e,n){let o=h(e);if(!o?.codemirror)return;let t=o.codemirror,r=t.getDoc(),i=r.getSelection(),a=r.getCursor("from"),s=r.indexFromPos(a),d=`${n.prefix}${i||""}${n.suffix}`;if(r.replaceSelection(d),!i){let l=s+n.prefix.length;r.setSelection(r.posFromIndex(l),r.posFromIndex(l))}t.focus()}function h(e){return e?.editor??e}function J(e){let n=h(e);if(!n?.codemirror)return;let o=n.codemirror,t=o.getDoc(),r="||",i="||",a=t.somethingSelected(),s=t.getCursor("from"),d=t.getCursor("to"),l=t.indexFromPos(s),c=t.indexFromPos(d);if(a){let u=t.getSelection(),p=u.startsWith(r)&&u.endsWith(i)&&u.length>=r.length+i.length,w=l>=r.length?t.getRange(t.posFromIndex(l-r.length),s):"",C=t.getRange(d,t.posFromIndex(c+i.length)),I=w===r&&C===i;if(p){let g=u.slice(r.length,u.length-i.length);t.replaceRange(g,s,d);let x=l+g.length;t.setSelection(s,t.posFromIndex(x))}else if(I){let g=t.posFromIndex(c),x=t.posFromIndex(c+i.length);t.replaceRange("",g,x);let k=t.posFromIndex(l-r.length);t.replaceRange("",k,s);let b=l-r.length,_=c-r.length;t.setSelection(t.posFromIndex(b),t.posFromIndex(_))}else{let g=`${r}${u}${i}`;t.replaceRange(g,s,d);let x=t.posFromIndex(l+r.length),k=t.posFromIndex(l+r.length+u.length);t.setSelection(x,k)}}else{let u="spoiler",p=`${r}${u}${i}`;t.replaceRange(p,s);let $=t.posFromIndex(l+r.length),w=t.posFromIndex(l+r.length+u.length);t.setSelection($,w)}o.focus()}function V(e){let n=h(e);if(!n?.codemirror)return;let o=n.codemirror,t=o.getDoc(),r=t.somethingSelected(),i,a,s;r?(i=t.getSelection(),a=t.getCursor("from"),s=t.getCursor("to")):(i=t.getValue(),a={line:0,ch:0},s={line:t.lineCount()-1,ch:t.getLine(t.lineCount()-1).length});let d=i.replace(/\n{3,}/g,`
 
 `).replace(/([^\n])\n(?!\n)(?![-*+#>\d`|])/g,`$1
 
-`);n?e.replaceRange(g,l,s):e.setValue(g),r.focus()}function C(){let t=window.Alpine;if(!t||t.data.__markdownEditorExtendedPatched)return!!t;let o=t.data.bind(t);return t.data=function(r,e){return r!=="markdownEditorFormComponent"?o(r,e):o(r,function(...n){let i=e(...n);return M(i)})},t.data.__markdownEditorExtendedPatched=!0,!0}C()||document.addEventListener("alpine:init",()=>{C()},{once:!0});function T(t){let o=t.$wire,r=t.$root;if(!o){console.warn("Curator: $wire not found on component");return}if(!r){console.warn("Curator: $root not found on component");return}let e=r.id;if(!e){console.warn("Curator: Could not determine component key from $root.id");return}let n=`curator-panel-${e.replace(/\./g,"-")}`;window.dispatchEvent(new CustomEvent("open-modal",{detail:{id:n}}))}document.addEventListener("markdown-curator-insert",t=>{let o=t.detail;Array.isArray(o)&&(o=o[0]);let{key:r}=o||{},e=o?.media;if(Array.isArray(e)&&e.length>0&&e[0]?.media&&Array.isArray(e[0].media)&&(e=e[0].media),!r){console.warn("Curator: Missing key in event detail");return}if(!e||Array.isArray(e)&&e.length===0){console.warn("Curator: Missing media in event detail");return}if(!window.Alpine){console.warn("Curator: Alpine not found");return}let n=document.getElementById(r);if(!n){console.warn("Curator: Could not find editor element with id:",r);return}try{let l=window.Alpine.$data(n)?.editor;if(l&&l.codemirror){let s=l.codemirror,c=(Array.isArray(e)?e:[e]).map(a=>{let d=a.url||a.large_url||a.medium_url||a.thumbnail_url;return`![${a.alt||a.title||a.pretty_name||a.name||""}](${d})`}).join(`
-`);s.replaceSelection(c),s.focus()}else console.warn("Curator: Could not find codemirror instance")}catch(i){console.error("Curator: Error inserting media",i)}});
+`);r?t.replaceRange(d,a,s):t.setValue(d),o.focus()}function E(){let e=window.Alpine;if(!e||e.data.__markdownEditorExtendedPatched)return!!e;let n=e.data.bind(e);return e.data=function(o,t){return o!=="markdownEditorFormComponent"?n(o,t):n(o,function(...r){let i=t(...r);return N(i)})},e.data.__markdownEditorExtendedPatched=!0,!0}E()||document.addEventListener("alpine:init",()=>{E()},{once:!0});function X(e){let n=e.$wire,o=e.$root;if(!n){console.warn("Curator: $wire not found on component");return}if(!o){console.warn("Curator: $root not found on component");return}let t=o.id;if(!t){console.warn("Curator: Could not determine component key from $root.id");return}let r=`curator-panel-${t.replace(/\./g,"-")}`;window.dispatchEvent(new CustomEvent("open-modal",{detail:{id:r}}))}document.addEventListener("markdown-curator-insert",e=>{let n=e.detail;Array.isArray(n)&&(n=n[0]);let{key:o}=n||{},t=n?.media;if(Array.isArray(t)&&t.length>0&&t[0]?.media&&Array.isArray(t[0].media)&&(t=t[0].media),!o){console.warn("Curator: Missing key in event detail");return}if(!t||Array.isArray(t)&&t.length===0){console.warn("Curator: Missing media in event detail");return}if(!window.Alpine){console.warn("Curator: Alpine not found");return}let r=document.getElementById(o);if(!r){console.warn("Curator: Could not find editor element with id:",o);return}try{let a=window.Alpine.$data(r)?.editor;if(a&&a.codemirror){let s=a.codemirror,l=(Array.isArray(t)?t:[t]).map(c=>{let u=c.url||c.large_url||c.medium_url||c.thumbnail_url;return`![${c.alt||c.title||c.pretty_name||c.name||""}](${u})`}).join(`
+`);s.replaceSelection(l),s.focus()}else console.warn("Curator: Could not find codemirror instance")}catch(i){console.error("Curator: Error inserting media",i)}});
