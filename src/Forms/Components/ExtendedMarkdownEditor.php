@@ -182,7 +182,6 @@ class ExtendedMarkdownEditor extends BaseMarkdownEditor
         return 'curator.path_generator';
     }
 
-
     public function curator(bool | Closure $condition = true): static
     {
         $this->curatorEnabled = $condition;

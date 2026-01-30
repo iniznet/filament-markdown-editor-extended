@@ -29,7 +29,7 @@ class MarkdownEditorExtendedServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
-        $this->app->singleton(MarkdownEditorExtended::class, fn (): MarkdownEditorExtended => new MarkdownEditorExtended());
+        $this->app->singleton(MarkdownEditorExtended::class, fn (): MarkdownEditorExtended => new MarkdownEditorExtended);
     }
 
     public function packageBooted(): void
@@ -49,7 +49,7 @@ class MarkdownEditorExtendedServiceProvider extends PackageServiceProvider
         ], 'filament-markdown-editor-extended-stubs');
 
         if (is_callable([Testable::class, 'mixin'])) {
-            call_user_func([Testable::class, 'mixin'], new TestsMarkdownEditorExtended());
+            call_user_func([Testable::class, 'mixin'], new TestsMarkdownEditorExtended);
         }
     }
 
@@ -66,6 +66,7 @@ class MarkdownEditorExtendedServiceProvider extends PackageServiceProvider
             Js::make('filament-markdown-editor-extended-scripts', $scriptPath),
         ];
     }
+
     /**
      * @return array<string, mixed>
      */
