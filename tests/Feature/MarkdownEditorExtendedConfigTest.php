@@ -115,7 +115,7 @@ it('provides default syntax configuration', function (): void {
         ->toMatchArray([
             'bold' => ['prefix' => '**', 'suffix' => '**'],
             'italic' => ['prefix' => '*', 'suffix' => '*'],
-            'strike' => ['prefix' => '~~', 'suffix' => '~~'],
+            'strike' => ['prefix' => '~-', 'suffix' => '-~'],
             'link' => ['prefix' => '[', 'suffix' => '](url)'],
             'heading' => ['prefix' => '# ', 'suffix' => ''],
             'blockquote' => ['prefix' => '> ', 'suffix' => ''],

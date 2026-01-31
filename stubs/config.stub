@@ -21,7 +21,7 @@ return [
     'syntax' => [
         'bold' => ['prefix' => '**', 'suffix' => '**'],
         'italic' => ['prefix' => '*', 'suffix' => '*'],
-        'strike' => ['prefix' => '~~', 'suffix' => '~~'],
+        'strike' => ['prefix' => '~-', 'suffix' => '-~'],
         'link' => ['prefix' => '[', 'suffix' => '](url)'],
         'heading' => ['prefix' => '# ', 'suffix' => ''],
         'blockquote' => ['prefix' => '> ', 'suffix' => ''],
