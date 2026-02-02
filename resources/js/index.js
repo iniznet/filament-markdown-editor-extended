@@ -196,6 +196,7 @@ function insertFencedBlock(component, opener) {
         doc.setCursor({ line: cursor.line - 1, ch: opener.length });
     }
 
+    syncEditorState(component);
     cm.focus();
 }
 
@@ -361,11 +362,36 @@ function applySyntax(component, config) {
         doc.setSelection(doc.posFromIndex(cursorStart), doc.posFromIndex(cursorStart));
     }
 
+    syncEditorState(component);
     cm.focus();
 }
 
 function getEditorInstance(component) {
     return component?.editor ?? component;
+}
+
+function syncEditorState(component) {
+    if (! component) {
+        return;
+    }
+
+    const editor = getEditorInstance(component);
+
+    if (! editor) {
+        return;
+    }
+
+    const value = typeof editor.value === 'function'
+        ? editor.value()
+        : editor.codemirror?.getValue();
+
+    if (value === undefined) {
+        return;
+    }
+
+    if ('state' in component) {
+        component.state = value;
+    }
 }
 
 function toggleInlineSpoiler(component) {
@@ -435,6 +461,7 @@ function toggleInlineSpoiler(component) {
         doc.setSelection(selectionStart, selectionEnd);
     }
 
+    syncEditorState(component);
     cm.focus();
 }
 
@@ -480,6 +507,7 @@ function convertLineBreaksToParagraphs(component) {
         doc.setValue(converted);
     }
 
+    syncEditorState(component);
     cm.focus();
 }
 
@@ -607,6 +635,7 @@ document.addEventListener('markdown-curator-insert', (event) => {
             }).join('\n');
 
             cm.replaceSelection(text);
+            syncEditorState(data);
             cm.focus();
         } else {
             console.warn('Curator: Could not find codemirror instance');

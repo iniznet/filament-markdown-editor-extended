@@ -35,6 +35,8 @@ class ExtendedMarkdownEditor extends BaseMarkdownEditor
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->toolbarButtons(fn () => $this->resolveToolbar());
     }
 

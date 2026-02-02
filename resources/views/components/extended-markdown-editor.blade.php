@@ -37,6 +37,11 @@
                             minHeight: @js($getMinHeight()),
                             placeholder: @js($getPlaceholder()),
                             state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')", isOptimisticallyLive: false) }},
+                            setUpUsing: (component) => {
+                                component.extendedTranslations = @js($getExtendedTranslations());
+                                component.extendedSyntax = @js($getExtendedSyntax());
+                                component.extendedIcons = @js($getExtendedIcons());
+                            },
                             toolbarButtons: @js($getToolbarButtons()),
                             extendedTranslations: @js($getExtendedTranslations()),
                             extendedSyntax: @js($getExtendedSyntax()),
