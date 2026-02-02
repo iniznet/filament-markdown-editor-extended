@@ -48,6 +48,10 @@ class MarkdownEditorExtendedServiceProvider extends PackageServiceProvider
             __DIR__ . '/../stubs' => base_path('stubs/filament-markdown-editor-extended'),
         ], 'filament-markdown-editor-extended-stubs');
 
+        $this->publishes([
+            __DIR__ . '/../resources/icons' => public_path('vendor/filament-markdown-editor-extended/icons'),
+        ], 'filament-markdown-editor-extended-icons');
+
         if (is_callable([Testable::class, 'mixin'])) {
             call_user_func([Testable::class, 'mixin'], new TestsMarkdownEditorExtended);
         }
