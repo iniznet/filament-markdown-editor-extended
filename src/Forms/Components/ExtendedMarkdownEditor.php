@@ -171,7 +171,39 @@ class ExtendedMarkdownEditor extends BaseMarkdownEditor
             $overrides = [];
         }
 
-        return array_replace_recursive($base, $overrides);
+        $icons = array_replace_recursive($base, $overrides);
+
+        foreach ($icons as $key => $value) {
+            $icons[$key] = $this->resolveIconValue($value);
+        }
+
+        return $icons;
+    }
+
+    protected function resolveIconValue(mixed $value): mixed
+    {
+        if (! is_string($value)) {
+            return $value;
+        }
+
+        if (! str_starts_with($value, '/vendor/filament-markdown-editor-extended/icons/')) {
+            return $value;
+        }
+
+        $iconPath = $this->getPackageIconPath(basename($value));
+
+        if (! is_file($iconPath)) {
+            return $value;
+        }
+
+        $contents = file_get_contents($iconPath);
+
+        return $contents === false ? $value : $contents;
+    }
+
+    protected function getPackageIconPath(string $filename): string
+    {
+        return __DIR__.'/../../../resources/icons/'.$filename;
     }
 
     public function getCuratorModalHeadingKey(): string
