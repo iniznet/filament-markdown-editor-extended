@@ -65,7 +65,7 @@ class MarkdownEditorExtendedServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         $scriptPath = __DIR__ . '/../resources/dist/filament-markdown-editor-extended.js';
-        
+
         $version = file_exists($scriptPath) ? filemtime($scriptPath) : time();
         $assetId = 'filament-markdown-editor-extended-scripts-' . $version;
 
