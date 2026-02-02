@@ -215,13 +215,14 @@ function patchComponent(component) {
         component.init = async function (...args) {
             await originalInit(...args);
 
-            applyPreviewSyntaxNormalizer(component);
+            ensureIconStylesInjected(this);
+            applyPreviewSyntaxNormalizer(this);
         };
 
         component.__markdownEditorExtendedInitPatched = true;
+    } else {
+        ensureIconStylesInjected(component);
     }
-
-    ensureIconStylesInjected(component);
 
     const originalGetToolbarButton = component.getToolbarButton.bind(component);
 
@@ -481,24 +482,17 @@ function convertLineBreaksToParagraphs(component) {
     let endPos;
 
     if (hasSelection) {
-        // Only convert selected text
         text = doc.getSelection();
         startPos = doc.getCursor('from');
         endPos = doc.getCursor('to');
     } else {
-        // Convert entire document
         text = doc.getValue();
         startPos = { line: 0, ch: 0 };
         endPos = { line: doc.lineCount() - 1, ch: doc.getLine(doc.lineCount() - 1).length };
     }
 
-    // Convert single newlines to double newlines (paragraphs)
-    // But preserve existing double newlines (already paragraphs)
-    // And preserve markdown elements like headers, lists, code blocks, etc.
     const converted = text
-        // First, normalize: replace 3+ newlines with exactly 2
         .replace(/\n{3,}/g, '\n\n')
-        // Then convert single newlines to double (but not inside code blocks or after special chars)
         .replace(/([^\n])\n(?!\n)(?![-*+#>\d`|])/g, '$1\n\n');
 
     if (hasSelection) {
@@ -544,9 +538,6 @@ if (! patchAlpineData()) {
 }
 
 function openCuratorPanel(component) {
-    // component is the Alpine data object (markdownEditorFormComponent instance)
-    // It has: editor, state, $wire, $root, $refs, etc.
-
     const $wire = component.$wire;
     const $root = component.$root;
 
@@ -560,8 +551,6 @@ function openCuratorPanel(component) {
         return;
     }
 
-    // The key is the id attribute of the $root element (set in the blade template)
-    // Format: typically something like "data.content"
     const key = $root.id;
 
     if (!key) {
@@ -575,9 +564,7 @@ function openCuratorPanel(component) {
     }));
 }
 
-// Listen for our custom markdown-curator-insert event
 document.addEventListener('markdown-curator-insert', (event) => {
-    // Handle both wrapped and unwrapped event detail (Livewire can wrap in array)
     let detail = event.detail;
     if (Array.isArray(detail)) {
         detail = detail[0];
@@ -585,14 +572,9 @@ document.addEventListener('markdown-curator-insert', (event) => {
 
     const { key } = detail || {};
 
-    // The media structure from Curator is deeply nested:
-    // detail.media = [{ statePath: '...', media: [actual items] }]
-    // We need to extract the actual media items
     let media = detail?.media;
 
-    // Unwrap the nested structure
     if (Array.isArray(media) && media.length > 0) {
-        // Check if it's the Curator structure with statePath and media
         if (media[0]?.media && Array.isArray(media[0].media)) {
             media = media[0].media;
         }
@@ -613,7 +595,6 @@ document.addEventListener('markdown-curator-insert', (event) => {
         return;
     }
 
-    // The key matches the id attribute of the markdown editor element
     const editorElement = document.getElementById(key);
 
     if (!editorElement) {
