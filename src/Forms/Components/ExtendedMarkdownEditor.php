@@ -203,7 +203,7 @@ class ExtendedMarkdownEditor extends BaseMarkdownEditor
 
     protected function getPackageIconPath(string $filename): string
     {
-        return __DIR__.'/../../../resources/icons/'.$filename;
+        return __DIR__ . '/../../../resources/icons/' . $filename;
     }
 
     public function getCuratorModalHeadingKey(): string
