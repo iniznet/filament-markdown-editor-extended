@@ -66,8 +66,14 @@ class MarkdownEditorExtendedServiceProvider extends PackageServiceProvider
     {
         $scriptPath = __DIR__ . '/../resources/dist/filament-markdown-editor-extended.js';
 
+        $asset = Js::make('filament-markdown-editor-extended-scripts', $scriptPath);
+
+        if (file_exists($scriptPath)) {
+            $asset->package('iniznet/filament-markdown-editor-extended:' . filemtime($scriptPath));
+        }
+
         return [
-            Js::make('filament-markdown-editor-extended-scripts', $scriptPath),
+            $asset,
         ];
     }
 
